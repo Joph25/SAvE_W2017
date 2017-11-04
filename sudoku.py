@@ -20,11 +20,11 @@ def check_value(x, i, j):
     for k in range(9):
         if sudoku[k][j] == x:
             return False
-            # check vertical
+    # check vertical
     for k in range(9):
         if sudoku[i][k] == x:
             return False
-            # check 3x3 surroundings
+    # check 3x3 surroundings
     start_i = i // 3
     start_j = j // 3
     for k in range(3):
