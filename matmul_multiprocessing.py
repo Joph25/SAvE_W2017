@@ -1,5 +1,5 @@
 import multiprocessing
-import random
+import myrandom
 import time
 import numpy
 
@@ -12,7 +12,7 @@ def mat_create_multi(nr):
     # Creates nr matrices with random numbers [-10000 ... 10000]
     m = []
     for j in range(nr):
-        m.append([[float(x) / 10 for x in random.sample(range(-100000, 100000), ns1)] for s in range(nz1)])
+        m.append([[float(x) / 10 for x in myrandom.sample(range(-100000, 100000), ns1)] for s in range(nz1)])
     return m
 
 
