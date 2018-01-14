@@ -33,7 +33,7 @@ class Integral:
         return math.pow((b-a),num_para) * (1 / self.precision) * sum
 
 
-def f(x):
+def l(x):
     return (x * x)
 
 def g(x,y):
@@ -49,7 +49,7 @@ def main():
     my_integral = Integral()
 
     #print(my_integral.compute_1dim(math.sin, 0, (math.pi)/2))
-    #print(my_integral.compute_1dim(f, 0, 10))
+    print(my_integral.compute_multdim(l, 0, 10))
     #print(my_integral.compute_multdim(g, -10, 10))
     #print(my_integral.compute_multdim(h, 0, 1))
 
