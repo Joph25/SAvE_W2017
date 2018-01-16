@@ -66,11 +66,28 @@ class Potential:
             f.write("\n")
         f.close()
 
+    def print_field_to_file(self, filename):
+        f = open(filename, 'w')
+        for i in range(len(self.e_field)):
+            for j in range(len(self.e_field[i])):
+                f.write(str('%.1f' % self.e_field[i][j][0]+',%.1f'%self.e_field[i][j][1]))
+                f.write(" ")
+            f.write("\n")
+        f.close()
+
     def print_for_gnuplot(self, filename):
         f = open(filename, 'w')
         for i in range(len(self.potential)):
             for j in range(len(self.potential[i])):
                 f.write(str(i) + " " + str(j) + " " + str(self.potential[i][j][0]))
+                f.write("\n")
+        f.close()
+
+    def print_field_for_gnuplot(self, filename):
+        f = open(filename, 'w')
+        for i in range(len(self.e_field)):
+            for j in range(len(self.e_field[i])):
+                f.write(str(i) + " " + str(j) + " " + str(self.e_field[i][j][0])+ " " + str(self.e_field[i][j][1]))
                 f.write("\n")
         f.close()
 
@@ -153,21 +170,24 @@ class Potential:
         for i in range(len(self.potential)):
             for j in range(len(self.potential[i])):
                 if(self.potential[i][j][1]==False):
-                    self.e_field[0]=-(self.potential[i][j][0]-self.potential[i-1][j][0])
-                    self.e_field[1]=-(self.potential[i][j][0]-self.potential[i][j-1][0])
+                    self.e_field[i][j][0]=-(self.potential[i][j][0]-self.potential[i-1][j][0])
+                    self.e_field[i][j][1]=-(self.potential[i][j][0]-self.potential[i][j-1][0])
                 else:
-                    self.e_field[0] = 0
-                    self.e_field[1] = 0
+                    self.e_field[i][j][0] = 0
+                    self.e_field[i][j][1] = 0
 # ---------------------------------------------------------------------------------------------------------
 def main():
     dach = Potential()
     # for i in range(16,30):
     # omega=float(i)/10
-    omega = 1.5
-    dach.get_pot('laplace_daten/dach_ko60x60.dat')
-    counter=dach.calc_potential_SOR_evenodd(omega)
+    omega = 1
+    dach.get_pot('laplace_daten/zyl-100x100-20-49-0.dat')
+    counter=dach.calc_potential_SOR(omega)
     print ("With omega "+str(omega)+" the calculation took "+str(counter)+" steps")
     #counter = dach.calc_potential()
+    dach.calc_field()
+    dach.print_field_to_file("field_out.dat")
+    dach.print_field_for_gnuplot('gnu_field.dat')
     dach.print_to_file("pot_out.dat")
     dach.print_for_gnuplot("gnu_pot_out.dat")
 
