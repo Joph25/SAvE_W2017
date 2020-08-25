@@ -2,6 +2,7 @@ import copy
 
 PRECISION = 0.0001
 
+#TODO tu hier was
 
 class Potential:
     potential = []
